@@ -47,15 +47,15 @@ public class LengthMarkingController : MonoBehaviour
     }
     void CreateLengthMarkingObject(float currentValue, float maxValue)
     {
-        int wholeLengthMarking = Mathf.FloorToInt(currentValue / standardLengthMarkingUnit);
+        int lengthMarkingAmount = Mathf.FloorToInt(currentValue / standardLengthMarkingUnit);
         float extraPart = Mathf.FloorToInt(currentValue) % standardLengthMarkingUnit;
         float spriteWidth = Mathf.Abs(healthBarRear.position.x - healthBarFront.position.x);
-        Debug.Log("w " + wholeLengthMarking + " " + "s " + extraPart );
+        Debug.Log("w " + lengthMarkingAmount + " " + "s " + extraPart );
         if (extraPart > 0)
         {
-            wholeLengthMarking += 1;
+            lengthMarkingAmount += 1;
         }
-        for (int i = 0; i < wholeLengthMarking; i++)
+        for (int i = 0; i < lengthMarkingAmount; i++)
         {
             GameObject o = (GameObject)Instantiate(lengthMarkingPrefab, lengthMarkingPosition.position, Quaternion.identity, lengthMarkingInstanceParent);
             o.name = "Length Marking " + i;
@@ -71,11 +71,11 @@ public class LengthMarkingController : MonoBehaviour
             }
             lengthMarkings.Add(lengthMarking);
 
-            if (i == wholeLengthMarking - 1)
+            if (i == lengthMarkingAmount - 1)
             {
                 lastLengthMarking = lengthMarking;
                 lastLengthMarking.image.fillAmount =
-                    (currentValue - standardLengthMarkingUnit * (wholeLengthMarking - 1)) / standardLengthMarkingUnit;
+                    (currentValue - standardLengthMarkingUnit * (lengthMarkingAmount - 1)) / standardLengthMarkingUnit;
             }
         }
         AssignRecordedHealth();
